@@ -8,7 +8,7 @@ const app = express();
 initHandlebars(app);
 
 app.all('/', (req, res) => {
-    res.render('index', { layout: false });
+    res.render('index');
 })
 
 const message = `Application is running on http://localhost:${config.port}`;
