@@ -6,6 +6,7 @@ const expressConfig = require('./config/express.js');
 const routes = require('./config/routes.js');
 const app = express();
 
+expressConfig.urlEncoding(app);
 expressConfig.initHandlebars(app);
 expressConfig.initStaticFiles(app);
 

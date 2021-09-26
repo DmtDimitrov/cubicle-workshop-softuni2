@@ -1,6 +1,5 @@
 const express = require('express');
 const handlebars = require('express-handlebars');
-// const bodyParser = require('body-parser');
 const path = require('path');
 
 const initHandlebars = (app) => {
@@ -14,12 +13,16 @@ const initHandlebars = (app) => {
 
 const initStaticFiles = (app) => {
     app.use(express.static(path.resolve(__dirname, '../static')));
-    console.log(__dirname);
+};
+
+const urlEncoding = (app) => {
+    app.use(express.urlencoded({extended: true}));
 };
 
 const expressConfig = {
     initHandlebars,
-    initStaticFiles
+    initStaticFiles,
+    urlEncoding
 }
 
 module.exports = expressConfig;
