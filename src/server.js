@@ -3,15 +3,13 @@ const express = require('express');
 const env = process.env.NODE_ENV || 'development';
 const config = require('./config/config.js')[env];
 const expressConfig = require('./config/express.js');
-
+const routes = require('./config/routes.js');
 const app = express();
 
 expressConfig.initHandlebars(app);
 expressConfig.initStaticFiles(app);
 
-app.all('/', (req, res) => {
-    res.render('index');
-})
+app.use(routes);
 
 const message = `Application is running on http://localhost:${config.port}`;
 
