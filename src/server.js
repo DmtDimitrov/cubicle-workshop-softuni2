@@ -2,12 +2,15 @@ const express = require('express');
 const env = process.env.NODE_ENV || 'development';
 
 const config = require('./config/config.js')[env];
+const initHandlebars = require('./config/express.js');
 const app = express();
 
-console.log('start');
+initHandlebars(app);
+
 app.all('/', (req, res) => {
-    res.write('Started');
-    res.end();
+    res.render('index', { layout: false });
 })
 
-app.listen(config.port, console.log.bind(console, `Aplication is running on http://localhost:${config.port}`));
+const message = `Application is running on http://localhost:${config.port}`;
+
+app.listen(config.port, console.log.bind(console, message));
