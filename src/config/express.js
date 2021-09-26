@@ -1,15 +1,25 @@
-// const express = require('express');
+const express = require('express');
 const handlebars = require('express-handlebars');
 // const bodyParser = require('body-parser');
 const path = require('path');
 
 const initHandlebars = (app) => {
     app.set('views', path.resolve(__dirname, '../views'));
-    
+
     app.engine('hbs', handlebars({
         extname: 'hbs'
     }));
     app.set('view engine', 'hbs');
+};
+
+const initStaticFiles = (app) => {
+    app.use(express.static(path.resolve(__dirname, '../static')));
+    console.log(__dirname);
+};
+
+const expressConfig = {
+    initHandlebars,
+    initStaticFiles
 }
 
-module.exports = initHandlebars;
+module.exports = expressConfig;
