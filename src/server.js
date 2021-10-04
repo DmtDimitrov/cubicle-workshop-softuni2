@@ -1,4 +1,5 @@
 const express = require('express');
+const initDb = require('./config/db.js');
 
 const env = process.env.NODE_ENV || 'development';
 const config = require('./config/config.js')[env];
@@ -12,6 +13,12 @@ expressConfig.initStaticFiles(app);
 
 app.use(routes);
 
-const message = `Application is running on http://localhost:${config.port}`;
+initDb(config.dbConnection)
+    .then(() => {
+        app.listen(config.port, console.log(`App is running on http://localhost:${config.port}`));
+    })
+    .catch(err => {
+        console.log('Application init failed: ', err);
+    })
 
-app.listen(config.port, console.log.bind(console, message));
+
