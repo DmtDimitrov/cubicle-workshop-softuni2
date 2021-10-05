@@ -15,21 +15,25 @@ const create = (name, description, imageUrl, difficultyLevel) => {
 };
 
 const search = async (searchedText, from, to) => {
-    let result = await getAll();
+    try {
+        let result = await getAll();
+        
+        if (searchedText) {
+            result = result.filter(x => x.name.toLowerCase().includes(searchedText.toLowerCase()));
+        };
     
-    if (searchedText) {
-        result = result.filter(x => x.name.toLowerCase().includes(searchedText.toLowerCase()));
-    };
-
-    if (from) {
-        result = result.filter(x => x.difficultyLevel >= from)
-    };
-
-    if (to) {
-        result = result.filter(x => x.difficultyLevel <= to)
-    };
-
-    return result;
+        if (from) {
+            result = result.filter(x => x.difficultyLevel >= from)
+        };
+    
+        if (to) {
+            result = result.filter(x => x.difficultyLevel <= to)
+        };
+    
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 const cubeService = {
