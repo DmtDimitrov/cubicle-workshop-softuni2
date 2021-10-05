@@ -3,16 +3,16 @@ const mongoose = require('mongoose');
 const cubeSchema = mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: [true, 'Name is required!']
   },
   description: {
     type: String,
-    required: true,
-    maxlength: 200
+    required: [true, 'Description is required!'],
+    maxlength: [200, 'Description max length is 200 characters!']
   },
   imageUrl: {
     type: String,
-    required: true,
+    required: [true, 'Image url is required!'],
     validate: [/^https?:\/\//i, 'Invalid image Url!']
   },
   difficultyLevel: {
