@@ -4,23 +4,30 @@ const cubeService = require('../services/cubeService.js');
 const router = express.Router();
 
 const homeView = async (req, res) => {
-    let cubes = await cubeService.getAll();
-    res.render('index', { cubes });
+    try {
+        let cubes = await cubeService.getAll();
+        res.render('index', { cubes });
+    } catch (error) {
+        res.status(400).send(error.message);
+    };
 };
 
 const aboutView = (req, res) => {
     res.render('about');
 }
 
-const searchView = (req, res) => {
-    // console.log(req.query);
+const searchView = async (req, res) => {
+    try {
+        let { search, from, to } = req.query;
 
-    let { search, from, to } = req.query;
+        let cubes = await cubeService.search(search, from, to);
 
-    let cubes = cubeService.search(search, from, to);
+        res.render('search', { cubes });
+    } catch (error) {
+        res.status(400).send(error.message);
+    };
 
-    res.render('search', { cubes });
-}
+};
 
 router.get('/', homeView);
 router.get('/about', aboutView);
