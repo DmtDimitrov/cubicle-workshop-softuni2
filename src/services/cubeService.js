@@ -1,4 +1,4 @@
-const Cube = require('../models/cube.js');
+const Cube = require('../models/Cube.js');
 
 const getAll = () => Cube.find({}).lean();
 
