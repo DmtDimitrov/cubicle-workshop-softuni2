@@ -3,17 +3,17 @@ const mongoose = require('mongoose');
 const accessorySchema = mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: [true, 'Name is required!']
     },
     imageUrl: {
         type: String,
-        required: true,
-        validate:[/^https?:\/\//i, 'invalid image url!']
+        required: [true, 'Image url is required!'],
+        validate: [/^https?:\/\//i, 'invalid image url!']
     },
     description: {
         type: String,
-        required: true,
-        maxlength: 200,
+        required: [true, 'Description is required!'],
+        maxlength: [200, 'Description max length is 200 characters!'],
     }
 });
 
