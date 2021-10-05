@@ -15,7 +15,7 @@ const createCube = async (req, res) => {
         res.redirect('/');
 
     } catch (error) {
-        res.status(400).send(error.message).end();
+        res.status(400).send(error.message);
         
     }
 };
