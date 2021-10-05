@@ -11,7 +11,7 @@ const create = (name, description, imageUrl, difficultyLevel) => {
         imageUrl, 
         difficultyLevel
     });
-    Cube.create(newCube);
+    return Cube.create(newCube);
 };
 
 const search = async (searchedText, from, to) => {
