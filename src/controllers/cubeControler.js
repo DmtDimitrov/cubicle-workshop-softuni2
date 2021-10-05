@@ -9,15 +9,28 @@ const createCubeView = (req, res) => {
     res.render('cube/create');
 };
 
-const createCube = (req, res) => {
-    let { name, description, imageUrl, difficultyLevel } = req.body;
-    cubeService.create(name, description, imageUrl, difficultyLevel);
-    res.redirect('/');
+const createCube = async (req, res) => {
+
+    try {
+        let { name, description, imageUrl, difficultyLevel } = req.body;
+        cubeService.create(name, description, imageUrl, difficultyLevel);
+        res.redirect('/');
+
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
 };
 
-const cubeDetailsView = (req, res) => {
-    let specificCube = cubeService.getOne(req.params.cubeId);
-    res.render('details', { ...specificCube });
+const cubeDetailsView = async (req, res) => {
+    
+    try {
+        let specificCube = await cubeService.getOne(req.params.cubeId);
+        // console.log(req.params.cubeId);
+        res.render('cube/details', { ...specificCube });
+
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
 }
 
 router.get('/create', createCubeView);
