@@ -8,14 +8,15 @@ const createCubeView = (req, res) => {
 };
 
 const createCube = async (req, res) => {
-
+    
+    let { name, description, imageUrl, difficultyLevel } = req.body;
     try {
-        let { name, description, imageUrl, difficultyLevel } = req.body;
-        cubeService.create(name, description, imageUrl, difficultyLevel);
+       await cubeService.create(name, description, imageUrl, difficultyLevel);
         res.redirect('/');
 
     } catch (error) {
-        res.status(400).send(error.message);
+        res.status(400).send(error.message).end();
+        
     }
 };
 
