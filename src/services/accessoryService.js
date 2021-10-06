@@ -5,10 +5,8 @@ const create = (name, description, imageUrl) => {
 };
 
 const getAll = () => {
-   return  Accessory.find({}).lean();
+    return Accessory.find({}).lean();
 }
-
-
 
 const accessoryService = {
     create,
