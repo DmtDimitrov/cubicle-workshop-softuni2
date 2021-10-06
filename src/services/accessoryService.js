@@ -4,8 +4,13 @@ const create = (name, description, imageUrl) => {
     return Accessory.create({ name, description, imageUrl });
 };
 
+const getAll = () => Accessory.find({}).lean();
+
+
+
 const accessoryService = {
-    create
+    create,
+    getAll
 };
 
 module.exports = accessoryService;
