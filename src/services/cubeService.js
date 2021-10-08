@@ -5,6 +5,8 @@ const getAll = () => Cube.find({}).lean();
 
 const getOne = (id) => Cube.findById(id).lean();
 
+const getOneWithAccessories = (id) => Cube.findById(id).populate('accessories').lean();
+
 const create = (name, description, imageUrl, difficultyLevel) => {
     let newCube = new Cube({
         name,
@@ -52,7 +54,8 @@ const cubeService = {
     getAll,
     getOne,
     search,
-    attachAccessory
+    attachAccessory,
+    getOneWithAccessories
 };
 
 module.exports = cubeService;

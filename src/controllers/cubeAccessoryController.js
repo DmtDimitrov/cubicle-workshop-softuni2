@@ -8,9 +8,8 @@ const router = express.Router({ mergeParams: true });
 const attachAccessoryViewRoute = async (req, res) => {
     try {
         let cube = await cubeService.getOne(req.params.cubeId);
-
-        let accessories = await accessoryService.getAll()
-        // console.log(accessories);
+        let accessories = await accessoryService.getAllRemaining(cube.accessories)
+        console.log(accessories);
         res.render('cube/accessory/add', { cube, accessories });
     } catch (error) {
         res.status(400).send(error.message);

@@ -8,9 +8,14 @@ const getAll = () => {
     return Accessory.find({}).lean();
 }
 
+const getAllRemaining = (accessoryIds) => {
+    return Accessory.find({ _id: { $nin: accessoryIds } }).lean();
+}
+
 const accessoryService = {
     create,
-    getAll
+    getAll,
+    getAllRemaining
 };
 
 module.exports = accessoryService;
