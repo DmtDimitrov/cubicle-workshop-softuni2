@@ -19,7 +19,7 @@ const createCube = async (req, res) => {
 
     } catch (error) {
         res.status(400).send(error.message);
-        
+        res.end();
     }
 };
 
@@ -32,6 +32,7 @@ const cubeDetailsView = async (req, res) => {
 
     } catch (error) {
         res.status(400).send(error.message);
+        res.end();
     }
 }
 

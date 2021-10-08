@@ -13,6 +13,7 @@ const attachAccessoryViewRoute = async (req, res) => {
         res.render('cube/accessory/add', { cube, accessories });
     } catch (error) {
         res.status(400).send(error.message);
+        res.end();
     }
 };
 
@@ -25,6 +26,7 @@ const attachAccessoryRoute = async (req, res) => {
         res.redirect(`/cube/${cubeId}`);
     } catch (error) {
         res.status(400).send(error.message);
+        res.end();
 
     }
 };

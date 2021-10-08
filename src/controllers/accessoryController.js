@@ -16,6 +16,7 @@ const createAccessory = async (req, res) => {
         res.redirect('/'); 
     } catch (error) {
         res.status(400).send(error.message);
+        res.end();
     }
 };
 
