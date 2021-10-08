@@ -6,10 +6,16 @@ const loginViewRoute = (req, res) => {
     res.render('auth/login');
 }
 
-const loginRoute = (req, res) => {
-    console.log(req.body);
-    let { username, password } = req.body;
-    res.redirect('/auth/login');
+const loginRoute = async (req, res) => {
+    try {
+        console.log(req.body);
+        let { username, password } = req.body;
+        let authData = await authService.login(username, password)
+        res.redirect('/');
+    } catch (error) {
+        res.status(400).send(error.message);
+        res.end();
+    }
 };
 
 const registerViewRoute = (req, res) => {

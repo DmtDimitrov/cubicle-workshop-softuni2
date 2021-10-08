@@ -20,8 +20,14 @@ userSchema.pre('save', function (next) {
             this.password = hash;
             next();
         });
-    
+
 });
+
+userSchema.static('findByUsername', function (username) {
+    return this.findOne({ username });
+});
+
+
 
 const User = mongoose.model('User', userSchema);
 
