@@ -1,10 +1,15 @@
 const bcrypt = require('bcrypt');
 const User = require("../models/User.js");
 
+// const register = (username, password, repeatPassword) => {
+//     console.log(username, password, repeatPassword);
+//     return bcrypt.hash(password, 9)
+//         .then(hash => User.create({ username, password: hash }))
+// };
+
 const register = (username, password, repeatPassword) => {
-    console.log(username, password, repeatPassword);
-    return bcrypt.hash(password, 9)
-        .then(hash => User.create({ username, password: hash }))
+    
+    return User.create({username, password})
 };
 
 const authService = {
