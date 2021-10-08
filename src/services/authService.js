@@ -14,14 +14,17 @@ const register = (username, password, repeatPassword) => {
 
 const login = (username, password) => {
     return User.findByUsername(username)
-        .then(user => Promise.all([bcrypt.compare(password, user.password), user]))
+        .then(user => Promise.all([user.validatePassword(password), user]))
         .then(([isValid, user]) => {
+            console.log(isValid);
+            console.log(user);
             if (isValid) {
                 return user
             } else {
                 throw { message: 'Username or password is invalid' }
             }
         })
+        // .catch(() => null)
 
 };
 

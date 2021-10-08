@@ -10,8 +10,15 @@ const loginRoute = async (req, res) => {
     try {
         console.log(req.body);
         let { username, password } = req.body;
-        let authData = await authService.login(username, password)
-        res.redirect('/');
+        let user = await authService.login(username, password);
+        console.log(user);
+
+        if(user){
+            res.redirect('/');
+        }else {
+            res.redirect('/404');
+
+        }
     } catch (error) {
         res.status(400).send(error.message);
         res.end();
