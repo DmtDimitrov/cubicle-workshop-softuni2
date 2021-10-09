@@ -1,4 +1,7 @@
 const jwt = require('jsonwebtoken');
+// const util = require('util');
+
+// const sign = util.promisify(jwt.sign)
 
 function sign(payload, secret) {
     let promise = new Promise((resolve, reject) => {
@@ -11,7 +14,7 @@ function sign(payload, secret) {
         });
     });
     return promise;
-};
+}; // Transform callback to promise function
 
 const jwtUtils = {
     sign,
