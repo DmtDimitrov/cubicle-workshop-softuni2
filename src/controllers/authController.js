@@ -21,6 +21,10 @@ const loginRoute = async (req, res) => {
         // console.log(`user: ${user}`);
         // console.log(`token: ${token}`);
 
+        res.cookie('jwtToken', token, {
+            httpOnly: true
+        });
+
         res.redirect('/');
 
 
