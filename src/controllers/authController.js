@@ -18,8 +18,8 @@ const loginRoute = async (req, res) => {
         };
 
         let token = await tokenService.create(user);
-        console.log(`user: ${user}`);
-        console.log(`token: ${token}`);
+        // console.log(`user: ${user}`);
+        // console.log(`token: ${token}`);
 
         res.redirect('/');
 
