@@ -1,6 +1,7 @@
-const authService = require('../services/authService.js');
-
 const router = require('express').Router();
+const authService = require('../services/authService.js');
+const tokenService = require('../services/tokenService.js');
+
 
 const loginViewRoute = (req, res) => {
     res.render('auth/login');
@@ -8,17 +9,21 @@ const loginViewRoute = (req, res) => {
 
 const loginRoute = async (req, res) => {
     try {
-        console.log(req.body);
         let { username, password } = req.body;
+
         let user = await authService.login(username, password);
-        console.log(user);
 
-        if(user){
-            res.redirect('/');
-        }else {
-            res.redirect('/404');
+        if (!user) {
+            return res.redirect('/404');
+        };
 
-        }
+        let token = await tokenService.create(user);
+        console.log(`user: ${user}`);
+        console.log(`token: ${token}`);
+
+        res.redirect('/');
+
+
     } catch (error) {
         res.status(400).send(error.message);
         res.end();
@@ -35,7 +40,7 @@ const registerRoute = async (req, res) => {
         let { username, password, repeatPassword } = req.body;
         await authService.register(username, password, repeatPassword);
         res.redirect('/auth/login');
-        
+
     } catch (error) {
         res.status(400).send(error.message);
         res.end();

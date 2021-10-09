@@ -1,5 +1,8 @@
-const bcrypt = require('bcrypt');
-const User = require("../models/User.js");
+// const bcrypt = require('bcrypt');
+// const jwt = require('jsonwebtoken');
+const User = require('../models/User.js');
+
+const tokenService = require('../services/tokenService.js');
 
 // const register = (username, password, repeatPassword) => {
 //     console.log(username, password, repeatPassword);
@@ -24,9 +27,10 @@ const login = (username, password) => {
                 throw { message: 'Username or password is invalid' }
             }
         })
-        // .catch(() => null)
-
+        .catch(() => null)
 };
+
+
 
 
 const authService = {
