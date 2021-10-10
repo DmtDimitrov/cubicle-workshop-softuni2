@@ -9,6 +9,8 @@ const create = (user) => {
         _id: user._id,
         username: user.username,
     }
+
+    // console.log(`payload: ${payload.username}`);
     return jwtUtils.sign(payload, SECRET);
 };
 
