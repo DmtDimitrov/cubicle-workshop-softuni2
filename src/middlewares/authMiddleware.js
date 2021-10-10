@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const verifyToken = (req, res, next) => {
     let token = req.cookies[TOKEN_COOKIE_NAME];
 
-    if(!token){
+    if (!token) {
         return next();
     }
 
@@ -19,10 +19,18 @@ const verifyToken = (req, res, next) => {
         req.user = decodedToken;
         next();
     });
-}
+};
+
+const isAuth = (req, res, next) => {
+    if (!req.user) {
+        return res.status(401).redirect('/auth/login')
+    }
+    next();
+};
 
 const authMiddleware = {
-    verifyToken
-}
+    verifyToken,
+    isAuth
+};
 
 module.exports = authMiddleware;
