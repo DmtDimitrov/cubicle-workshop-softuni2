@@ -10,7 +10,7 @@ const getAttachAccessoryView = async (req, res) => {
         let cube = await cubeService.getOne(req.params.cubeId);
         let accessories = await accessoryService.getAllRemaining(cube.accessories)
         // console.log(accessories);
-        res.render('cube/accessory/add', { cube, accessories });
+        res.render('cube/accessory/add', { cube, accessories, title: 'Add Cube Accessory' });
     } catch (error) {
         res.status(400).send(error.message);
         res.end();

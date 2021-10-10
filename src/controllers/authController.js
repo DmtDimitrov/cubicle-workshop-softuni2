@@ -5,7 +5,7 @@ const { TOKEN_COOKIE_NAME } = require('../constants.js');
 
 
 const getLoginView = (req, res) => {
-    res.render('auth/login');
+    res.render('auth/login', {title: 'Login'});
 }
 
 const postLoginView = async (req, res) => {
@@ -38,7 +38,7 @@ const postLoginView = async (req, res) => {
 };
 
 const getRegisterView = (req, res) => {
-    res.render('auth/register');
+    res.render('auth/register', {title: 'Register'});
 }
 
 const postRegisterView = async (req, res) => {

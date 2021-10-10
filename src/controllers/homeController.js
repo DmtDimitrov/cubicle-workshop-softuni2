@@ -6,14 +6,14 @@ const router = express.Router();
 const getHomeView = async (req, res) => {
     try {
         let cubes = await cubeService.getAll();
-        res.render('index', { cubes });
+        res.render('index', { title: 'Home', cubes });
     } catch (error) {
         res.status(400).send(error.message);
     };
 };
 
 const getAboutView = (req, res) => {
-    res.render('about');
+    res.render('about', {title: 'About'});
 }
 
 const getSearchView = async (req, res) => {

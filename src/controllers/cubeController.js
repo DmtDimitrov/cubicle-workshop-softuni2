@@ -8,7 +8,7 @@ const authMiddleware = require('../middlewares/authMiddleware.js');
 
 
 const getCreateCubeView = (req, res) => {
-    res.render('cube/create');
+    res.render('cube/create', { title: 'Add Cube' });
 };
 
 const postCreateCube = async (req, res) => {
@@ -29,7 +29,7 @@ const getDetailsCubeView = async (req, res) => {
     try {
         let specificCube = await cubeService.getOneWithAccessories(req.params.cubeId);
         // console.log(req.params.cubeId);
-        res.render('cube/details', { ...specificCube });
+        res.render('cube/details', { ...specificCube, title: 'Details Cube' });
 
     } catch (error) {
         res.status(400).send(error.message);
@@ -44,7 +44,7 @@ const getEditCubeView = async (req, res) => {
         console.log();
         // cube[`select${cube.difficultyLevel}`] = true;
 
-        res.render('cube/edit', editedCube);
+        res.render('cube/edit', { ...editedCube, title: 'Edit Cube' });
     } catch (error) {
         res.status(400).send(error.message);
         res.end();
@@ -71,7 +71,7 @@ const getDeleteCubeView = async (req, res) => {
         let cubeId = req.params.cubeId;
         let cubeToDelete = await cubeService.getOne(cubeId);
 
-        res.render('cube/delete', cubeToDelete);
+        res.render('cube/delete', {...cubeToDelete, title: 'Delete Cube'});
     } catch (error) {
         res.status(400).send(error.message);
         res.end();
