@@ -11,10 +11,10 @@ const createCubeViewRoute = (req, res) => {
 };
 
 const createCubeRoute = async (req, res) => {
-    
+
     let { name, description, imageUrl, difficultyLevel } = req.body;
     try {
-       await cubeService.create(name, description, imageUrl, difficultyLevel);
+        await cubeService.create(name, description, imageUrl, difficultyLevel);
         res.redirect('/');
 
     } catch (error) {
@@ -24,7 +24,7 @@ const createCubeRoute = async (req, res) => {
 };
 
 const cubeDetailsViewRoute = async (req, res) => {
-    
+
     try {
         let specificCube = await cubeService.getOneWithAccessories(req.params.cubeId);
         // console.log(req.params.cubeId);
@@ -37,7 +37,22 @@ const cubeDetailsViewRoute = async (req, res) => {
 };
 
 const editCubeViewRoute = (req, res) => {
-    res.render('cube/edit');
+    let editedCube = cubeService.getOne(req.params.cubeId);
+    console.log(req.params.cubeId);
+    res.render('cube/edit', { ...editedCube });
+};
+
+const editCubeRoute = async (req, res) => {
+
+    try {
+        let editedCube = await cubeService.getOne(req.params.cubeId);
+        console.log(editedCube);
+        res.render('cube/details', { ...editedCube });
+
+    } catch (error) {
+        res.status(400).send(error.message);
+        res.end();
+    }
 };
 
 const deleteCubeViewRoute = (req, res) => {
@@ -46,10 +61,10 @@ const deleteCubeViewRoute = (req, res) => {
 
 router.get('/create', createCubeViewRoute);
 router.post('/create', createCubeRoute);
-router.get('/edit', editCubeViewRoute);
-// router.post('/edit', editCubeRoute);
-router.get('/delete', deleteCubeViewRoute);
 router.get('/:cubeId/', cubeDetailsViewRoute)
 router.use('/:cubeId/accessory', cubeAccessoryController)
+router.get('/:cubeId/edit', editCubeViewRoute);
+router.post('/:cubeId/edit', editCubeRoute);
+router.get('/:cubeId/delete', deleteCubeViewRoute);
 
 module.exports = router;
