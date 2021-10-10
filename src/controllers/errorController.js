@@ -2,10 +2,10 @@ const express = require('express');
 
 const router = express.Router();
 
-const errorView = (req, res) => {
+const getErrorView = (req, res) => {
     res.status(404).render('404');
 }
 
-router.get('*', errorView);
+router.get('*', getErrorView);
 
 module.exports = router;

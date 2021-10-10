@@ -5,7 +5,7 @@ const router = express.Router({ mergeParams: true });
 
 
 
-const attachAccessoryViewRoute = async (req, res) => {
+const getAttachAccessoryView = async (req, res) => {
     try {
         let cube = await cubeService.getOne(req.params.cubeId);
         let accessories = await accessoryService.getAllRemaining(cube.accessories)
@@ -17,7 +17,7 @@ const attachAccessoryViewRoute = async (req, res) => {
     }
 };
 
-const attachAccessoryRoute = async (req, res) => {
+const postAttachAccessoryView = async (req, res) => {
     try {
         const cubeId = req.params.cubeId;
         const accessoryId = req.body.accessory;
@@ -31,7 +31,7 @@ const attachAccessoryRoute = async (req, res) => {
     }
 };
 
-router.get('/add', attachAccessoryViewRoute);
-router.post('/add', attachAccessoryRoute);
+router.get('/add', getAttachAccessoryView);
+router.post('/add', postAttachAccessoryView);
 
 module.exports = router;

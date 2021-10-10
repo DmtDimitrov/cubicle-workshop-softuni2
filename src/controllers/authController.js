@@ -4,11 +4,11 @@ const tokenService = require('../services/tokenService.js');
 const { TOKEN_COOKIE_NAME } = require('../constants.js');
 
 
-const loginViewRoute = (req, res) => {
+const getLoginView = (req, res) => {
     res.render('auth/login');
 }
 
-const loginRoute = async (req, res) => {
+const postLoginView = async (req, res) => {
     try {
         let { username, password } = req.body;
 
@@ -37,11 +37,11 @@ const loginRoute = async (req, res) => {
     }
 };
 
-const registerViewRoute = (req, res) => {
+const getRegisterView = (req, res) => {
     res.render('auth/register');
 }
 
-const registerRoute = async (req, res) => {
+const postRegisterView = async (req, res) => {
     try {
         // console.log(req.body);
         let { username, password, repeatPassword } = req.body;
@@ -55,9 +55,9 @@ const registerRoute = async (req, res) => {
 };
 
 
-router.get('/login', loginViewRoute);
-router.post('/login', loginRoute);
-router.get('/register', registerViewRoute);
-router.post('/register', registerRoute);
+router.get('/login', getLoginView);
+router.post('/login', postLoginView);
+router.get('/register', getRegisterView);
+router.post('/register', postRegisterView);
 
 module.exports = router;

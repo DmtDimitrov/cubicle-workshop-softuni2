@@ -4,11 +4,11 @@ const accessoryService = require('../services/accessoryService.js');
 
 const router = express.Router();
 
-const createAccessoryView = (req, res) => {
+const getCreateAccessoryView = (req, res) => {
     res.render('accessory/create');
 };
 
-const createAccessory = async (req, res) => {
+const postCreateAccessoryView = async (req, res) => {
     let { name, description, imageUrl } = req.body;
     try {
         await accessoryService.create(name, description, imageUrl);
@@ -20,7 +20,7 @@ const createAccessory = async (req, res) => {
     }
 };
 
-router.get('/create', createAccessoryView);
-router.post('/create', createAccessory);
+router.get('/create', getCreateAccessoryView);
+router.post('/create', postCreateAccessoryView);
 
 module.exports = router;
