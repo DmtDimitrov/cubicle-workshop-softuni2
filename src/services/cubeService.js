@@ -17,6 +17,13 @@ const create = (name, description, imageUrl, difficultyLevel) => {
     return Cube.create(newCube);
 };
 
+const edit = () => {
+
+};
+
+const deleteOne = (cubeId) => Cube.findByIdAndDelete(cubeId);
+
+
 const search = async (searchedText, from, to) => {
     try {
         let result = await getAll();
@@ -55,7 +62,9 @@ const cubeService = {
     getOne,
     search,
     attachAccessory,
-    getOneWithAccessories
+    getOneWithAccessories,
+    deleteOne,
+    edit
 };
 
 module.exports = cubeService;

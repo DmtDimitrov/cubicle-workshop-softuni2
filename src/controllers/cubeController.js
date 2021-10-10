@@ -7,11 +7,11 @@ const cubeAccessoryController = require('./cubeAccessoryController.js');
 const authMiddleware = require('../middlewares/authMiddleware.js');
 
 
-const createCubeViewRoute = (req, res) => {
+const getCreateCubeViewRoute = (req, res) => {
     res.render('cube/create');
 };
 
-const createCubeRoute = async (req, res) => {
+const postCreateCubeRoute = async (req, res) => {
 
     let { name, description, imageUrl, difficultyLevel } = req.body;
     try {
@@ -24,7 +24,7 @@ const createCubeRoute = async (req, res) => {
     }
 };
 
-const cubeDetailsViewRoute = async (req, res) => {
+const getDetailsCubeViewRoute = async (req, res) => {
 
     try {
         let specificCube = await cubeService.getOneWithAccessories(req.params.cubeId);
@@ -37,13 +37,19 @@ const cubeDetailsViewRoute = async (req, res) => {
     }
 };
 
-const editCubeViewRoute = (req, res) => {
-    let editedCube = cubeService.getOne(req.params.cubeId);
-    // console.log(req.params.cubeId);
-    res.render('cube/edit', { ...editedCube });
+const getEditCubeViewRoute = async (req, res) => {
+    try {
+        let cubeId = req.params.cubeId;
+        let editedCube = await cubeService.getOne(cubeId);
+
+        res.render('cube/edit', editedCube);
+    } catch (error) {
+        res.status(400).send(error.message);
+        res.end();
+    }
 };
 
-const editCubeRoute = async (req, res) => {
+const postEditCubeViewRoute = async (req, res) => {
 
     try {
         let editedCube = await cubeService.getOne(req.params.cubeId);
@@ -56,27 +62,36 @@ const editCubeRoute = async (req, res) => {
     }
 };
 
-const deleteCubeViewRoute = (req, res) => {
-    console.log(req.user);
-    if (!req.user) {
-        return res.redirect('/auth/login');
+const getDeleteCubeViewRoute = async (req, res) => {
+    try {
+        let cubeId = req.params.cubeId;
+        let cubeToDelete = await cubeService.getOne(cubeId);
+
+        res.render('cube/delete', cubeToDelete);
+    } catch (error) {
+        res.status(400).send(error.message);
+        res.end();
     }
-
-    res.render('cube/delete');
 };
 
-const deleteCubeRoute = async (req, res) => {
-
-
+const postDeleteCubeViewRoute = async (req, res) => {
+    try {
+        let cubeId = req.params.cubeId;
+        await cubeService.deleteOne(cubeId);
+        res.redirect('/')
+    } catch (error) {
+        res.status(400).send(error.message);
+        res.end();
+    }
 };
 
-router.get('/create', authMiddleware.isAuth, createCubeViewRoute);
-router.post('/create', authMiddleware.isAuth, createCubeRoute);
-router.get('/:cubeId/', cubeDetailsViewRoute)
+router.get('/create', authMiddleware.isAuth, getCreateCubeViewRoute);
+router.post('/create', authMiddleware.isAuth, postCreateCubeRoute);
+router.get('/:cubeId/', getDetailsCubeViewRoute)
+router.get('/:cubeId/edit', authMiddleware.isAuth, getEditCubeViewRoute);
+router.post('/:cubeId/edit', postEditCubeViewRoute);
+router.get('/:cubeId/delete', authMiddleware.isAuth, getDeleteCubeViewRoute);
+router.post('/:cubeId/delete', postDeleteCubeViewRoute);
 router.use('/:cubeId/accessory', cubeAccessoryController)
-router.get('/:cubeId/edit', authMiddleware.isAuth, editCubeViewRoute);
-router.post('/:cubeId/edit', editCubeRoute);
-router.get('/:cubeId/delete', authMiddleware.isAuth, deleteCubeViewRoute);
-router.post('/:cubeId/delete', deleteCubeRoute);
 
 module.exports = router;
