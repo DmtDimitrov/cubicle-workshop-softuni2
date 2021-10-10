@@ -17,9 +17,7 @@ const create = (name, description, imageUrl, difficultyLevel) => {
     return Cube.create(newCube);
 };
 
-const edit = () => {
-
-};
+const editOne = (cubeId, cubeObj) => Cube.findByIdAndUpdate(cubeId, cubeObj, { runValidators: true});
 
 const deleteOne = (cubeId) => Cube.findByIdAndDelete(cubeId);
 
@@ -64,7 +62,7 @@ const cubeService = {
     attachAccessory,
     getOneWithAccessories,
     deleteOne,
-    edit
+    editOne
 };
 
 module.exports = cubeService;

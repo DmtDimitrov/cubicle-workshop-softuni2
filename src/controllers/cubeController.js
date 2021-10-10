@@ -52,10 +52,12 @@ const getEditCubeViewRoute = async (req, res) => {
 const postEditCubeViewRoute = async (req, res) => {
 
     try {
-        let editedCube = await cubeService.getOne(req.params.cubeId);
-        // console.log(editedCube);
-        res.render('cube/details', { ...editedCube });
+        let cubeId = req.params.cubeId;
+        let { name, description, imageUrl, difficultyLevel } = req.body;
 
+        await cubeService.editOne(cubeId, { name, description, imageUrl, difficultyLevel });
+
+        res.redirect(`/cube/${cubeId}`)
     } catch (error) {
         res.status(400).send(error.message);
         res.end();
@@ -89,9 +91,9 @@ router.get('/create', authMiddleware.isAuth, getCreateCubeViewRoute);
 router.post('/create', authMiddleware.isAuth, postCreateCubeRoute);
 router.get('/:cubeId/', getDetailsCubeViewRoute)
 router.get('/:cubeId/edit', authMiddleware.isAuth, getEditCubeViewRoute);
-router.post('/:cubeId/edit', postEditCubeViewRoute);
+router.post('/:cubeId/edit', authMiddleware.isAuth, postEditCubeViewRoute);
 router.get('/:cubeId/delete', authMiddleware.isAuth, getDeleteCubeViewRoute);
-router.post('/:cubeId/delete', postDeleteCubeViewRoute);
+router.post('/:cubeId/delete', authMiddleware.isAuth, postDeleteCubeViewRoute);
 router.use('/:cubeId/accessory', cubeAccessoryController)
 
 module.exports = router;
