@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const authService = require('../services/authService.js');
 const tokenService = require('../services/tokenService.js');
+const { TOKEN_COOKIE_NAME } = require('../constants.js');
 
 
 const loginViewRoute = (req, res) => {
@@ -20,10 +21,12 @@ const loginRoute = async (req, res) => {
         let token = await tokenService.create(user);
         // console.log(`user: ${user}`);
         // console.log(`token: ${token}`);
+        // console.log(`token: ${token}`);
 
-        res.cookie('jwtToken', token, {
+        res.cookie(TOKEN_COOKIE_NAME, token, {
             httpOnly: true
         });
+
 
         res.redirect('/');
 

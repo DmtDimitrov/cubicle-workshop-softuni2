@@ -6,10 +6,12 @@ const env = process.env.NODE_ENV || 'development';
 const config = require('./config/config.js')[env];
 const expressConfig = require('./config/express.js');
 const routes = require('./config/routes.js');
+const authMiddleware = require('./middlewares/authMiddleware.js');
 const app = express();
 
 expressConfig.urlEncoding(app);
 app.use(cookieParser());
+app.use(authMiddleware.verifyToken)
 expressConfig.initHandlebars(app);
 expressConfig.initStaticFiles(app);
 
