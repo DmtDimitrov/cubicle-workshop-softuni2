@@ -19,8 +19,8 @@ const login = (username, password) => {
     return User.findByUsername(username)
         .then(user => Promise.all([user.validatePassword(password), user]))
         .then(([isValid, user]) => {
-            console.log(isValid);
-            console.log(user);
+            // console.log(isValid);
+            // console.log(user);
             if (isValid) {
                 return user
             } else {
