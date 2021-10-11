@@ -1,5 +1,4 @@
-// const bcrypt = require('bcrypt');
-// const jwt = require('jsonwebtoken');
+
 const User = require('../models/User.js');
 
 const tokenService = require('../services/tokenService.js');
@@ -11,7 +10,9 @@ const tokenService = require('../services/tokenService.js');
 // };
 
 const register = (username, password, repeatPassword) => {
-
+    if (password !== repeatPassword) {
+        throw new Error('Passwords do not match!');
+    }
     return User.create({ username, password })
 };
 
@@ -24,10 +25,12 @@ const login = (username, password) => {
             if (isValid) {
                 return user
             } else {
-                throw { message: 'Username or password is invalid' }
+                // throw { message: 'Username or password is invalid' };
+                throw new Error('Username or password is invalid');
             }
         })
         .catch(() => null)
+        
 };
 
 

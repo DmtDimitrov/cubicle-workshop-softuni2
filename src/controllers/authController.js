@@ -31,9 +31,10 @@ const postLoginView = async (req, res) => {
         res.redirect('/');
 
 
-    } catch (error) {
-        res.status(400).send(error.message);
-        res.end();
+    } catch (err) {
+        res.render('auth/login', { title: 'Login', error: err.message })
+        // res.status(400).send(error.message);
+        // res.end();
     }
 };
 
@@ -48,9 +49,10 @@ const postRegisterView = async (req, res) => {
         await authService.register(username, password, repeatPassword);
         res.redirect('/auth/login');
 
-    } catch (error) {
-        res.status(400).send(error.message);
-        res.end();
+    } catch (err) {
+        res.render('auth/register', { title: 'Register', error: err.message })
+        // res.status(400).send(error.message);
+        // res.end();
     }
 };
 
