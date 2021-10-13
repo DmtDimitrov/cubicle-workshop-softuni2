@@ -6,8 +6,10 @@
         <p><span>Difficulty level:</span> {{difficultyLevel}}</p>
         <a class="btn" href="/">Back</a>
         <a class="btn" href="/cube/{{_id}}/edit">Edit</a>
+        {{#if isOwn}}
         <a class="btn" href="/cube/{{_id}}/delete">Delete</a>
         <a class="btn" href="/cube/{{_id}}/accessory/add">Add accessory</a>
+        {{/if}}
     </div>
     <h2>Accessories</h2>
     <div class="accessories">

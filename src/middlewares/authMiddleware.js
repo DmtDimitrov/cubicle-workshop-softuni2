@@ -9,7 +9,7 @@ const verifyToken = (req, res, next) => {
     }
 
     // TODO: extract jwt.verify to jwt utils and make it promise function
-    jwt.verify(token, SECRET, function (err, decodedToken) {
+    jwt.verify(token, SECRET, function(err, decodedToken) {
         // console.log(err);
         // console.log(decodedToken);
         if (err) {
@@ -17,6 +17,7 @@ const verifyToken = (req, res, next) => {
         }
 
         req.user = decodedToken;
+        res.locals.user = decodedToken;
         next();
     });
 };

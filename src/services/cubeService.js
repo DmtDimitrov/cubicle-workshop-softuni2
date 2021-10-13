@@ -7,22 +7,23 @@ const getOne = (id) => Cube.findById(id).lean();
 
 const getOneWithAccessories = (id) => Cube.findById(id).populate('accessories').lean();
 
-const create = (name, description, imageUrl, difficultyLevel) => {
+const create = (name, description, imageUrl, difficultyLevel, creatorId) => {
     let newCube = new Cube({
         name,
         description,
         imageUrl,
-        difficultyLevel
+        difficultyLevel,
+        creator: creatorId
     });
     return Cube.create(newCube);
 };
 
-const editOne = (cubeId, cubeObj) => Cube.findByIdAndUpdate(cubeId, cubeObj, { runValidators: true});
+const editOne = (cubeId, cubeObj) => Cube.findByIdAndUpdate(cubeId, cubeObj, { runValidators: true });
 
 const deleteOne = (cubeId) => Cube.findByIdAndDelete(cubeId);
 
 
-const search = async (searchedText, from, to) => {
+const search = async(searchedText, from, to) => {
     try {
         let result = await getAll();
 
@@ -44,7 +45,7 @@ const search = async (searchedText, from, to) => {
     }
 };
 
-const attachAccessory = async (cubeId, accessoryId) => {
+const attachAccessory = async(cubeId, accessoryId) => {
     let cube = await Cube.findById(cubeId);
     let accessory = await Accessory.findById(accessoryId);
 

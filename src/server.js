@@ -7,6 +7,8 @@ const config = require('./config/config.js')[env];
 const expressConfig = require('./config/express.js');
 const routes = require('./config/routes.js');
 const authMiddleware = require('./middlewares/authMiddleware.js');
+const { errorHandler } = require('./middlewares/errorHandlerMiddleware.js')
+
 const app = express();
 
 expressConfig.urlEncoding(app);
@@ -16,6 +18,7 @@ expressConfig.initHandlebars(app);
 expressConfig.initStaticFiles(app);
 
 app.use(routes);
+app.use(errorHandler);
 
 initDb(config.dbConnection)
     .then(() => {
@@ -24,5 +27,3 @@ initDb(config.dbConnection)
     .catch(err => {
         console.log('Application init failed: ', err);
     })
-
-
